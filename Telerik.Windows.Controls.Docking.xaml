@@ -1,0 +1,2417 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="http://schemas.telerik.com/2008/xaml/compile"
+    xmlns:dock="clr-namespace:Telerik.Windows.Controls.Docking;assembly=Telerik.Windows.Controls.Docking"
+    xmlns:local="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Docking"
+    xmlns:mat="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:telerikAnimation="clr-namespace:Telerik.Windows.Controls.Animation;assembly=Telerik.Windows.Controls"
+    xmlns:telerikNavigation="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Navigation"
+    xmlns:telerikNavigationPrimitives="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Navigation"
+    xmlns:telerikTabControl="clr-namespace:Telerik.Windows.Controls.TabControl;assembly=Telerik.Windows.Controls.Navigation"
+    mc:Ignorable="c">
+    <ResourceDictionary.MergedDictionaries>
+        <telerik:FluentResourceDictionary />
+    </ResourceDictionary.MergedDictionaries>
+    <sys:String x:Key="GlyphArrowOverflowDown"></sys:String>
+    <sys:String x:Key="GlyphArrowChevronUp"></sys:String>
+    <sys:String x:Key="GlyphArrowChevronRight"></sys:String>
+    <sys:String x:Key="GlyphArrowChevronDown"></sys:String>
+    <sys:String x:Key="GlyphArrowChevronLeft"></sys:String>
+    <sys:String x:Key="GlyphClose"></sys:String>
+    <sys:String x:Key="GlyphPin"></sys:String>
+    <sys:String x:Key="GlyphUnpin"></sys:String>
+    <sys:TimeSpan x:Key="AutoHideInAnimationDuration">0:0:0.360</sys:TimeSpan>
+    <sys:TimeSpan x:Key="AutoHideOutAnimationDuration">0:0:0.400</sys:TimeSpan>
+    <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+    <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <telerik:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+    <telerik:ThicknessToOrientedThicknessConverter x:Key="ThicknessToOrientedThicknessConverter" />
+    <ControlTemplate x:Key="RadButtonCloseControlTemplate" TargetType="telerik:RadButton">
+        <Grid>
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="CloseIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphClose}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RadButtonCloseStyle" TargetType="telerik:RadButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template" Value="{StaticResource RadButtonCloseControlTemplate}" />
+        <Setter Property="CornerRadius" Value="0" />
+    </Style>
+    <ControlTemplate x:Key="RepeatButtonScrollLeftControlTemplate" TargetType="RepeatButton">
+        <Border
+            x:Name="BorderVisual"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="ArrowLeftIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphArrowChevronLeft}" />
+            </mat:FluentControl>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="ArrowLeftIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RepeatButtonScrollLeftStyle" TargetType="RepeatButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template" Value="{StaticResource RepeatButtonScrollLeftControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="RepeatButtonScrollRightControlTemplate" TargetType="RepeatButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="ArrowRightIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphArrowChevronRight}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="ArrowRightIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RepeatButtonScrollRightStyle" TargetType="RepeatButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template" Value="{StaticResource RepeatButtonScrollRightControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="DropDownButtonDropDownControlTemplate" TargetType="telerik:RadDropDownButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="DropDownIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphArrowChevronDown}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="DropDownIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="DropDownButtonDropDownStyle" TargetType="telerik:RadDropDownButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Template" Value="{StaticResource DropDownButtonDropDownControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="RadButtonDocumentCloseControlTemplate" TargetType="telerik:RadButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="CloseIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphClose}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RadButtonDocumentCloseStyle" TargetType="telerik:RadButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Template" Value="{StaticResource RadButtonDocumentCloseControlTemplate}" />
+    </Style>
+    <Style
+        x:Key="SmallRadButtonDocumentCloseStyle"
+        BasedOn="{StaticResource RadButtonDocumentCloseStyle}"
+        TargetType="telerik:RadButton">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="CornerRadius" Value="12" />
+    </Style>
+    <ControlTemplate x:Key="DropDownButtonDocumentDropDownControlTemplate" TargetType="telerik:RadDropDownButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+            <mat:FluentControl
+                x:Name="Material"
+                BorderThickness="0"
+                CornerRadius="{TemplateBinding CornerRadius}"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="DropDownIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphArrowOverflowDown}" />
+            </mat:FluentControl>
+            <Popup
+                x:Name="DropDownPopup"
+                AllowsTransparency="True"
+                Focusable="False"
+                HorizontalOffset="-3"
+                Placement="Bottom"
+                StaysOpen="False">
+                <Grid>
+                    <Border
+                        x:Name="DropDownPopupBorder"
+                        Width="{TemplateBinding DropDownWidth}"
+                        Height="{TemplateBinding DropDownHeight}"
+                        MinWidth="3"
+                        MinHeight="3"
+                        MaxWidth="{TemplateBinding DropDownMaxWidth}"
+                        MaxHeight="{TemplateBinding DropDownMaxHeight}"
+                        Background="Transparent">
+                        <ContentControl
+                            x:Name="DropDownPopupContent"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{TemplateBinding DropDownContent}"
+                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                            ContentTemplate="{TemplateBinding DropDownContentTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                            DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DataContext}"
+                            Foreground="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+                    </Border>
+                </Grid>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsOpen" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.CheckedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="DropDownIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="DropDownButtonDocumentDropDownStyle" TargetType="telerik:RadDropDownButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="mat:MaterialAssist.CheckedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Template" Value="{StaticResource DropDownButtonDocumentDropDownControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="RadButtonPinControlTemplate" TargetType="telerik:RadButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="UnPinIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphPin}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="UnPinIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RadButtonPinStyle" TargetType="telerik:RadButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="{telerik:FluentResource ResourceKey=CornerRadius}" />
+        <Setter Property="Template" Value="{StaticResource RadButtonPinControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="RadButtonUnpinControlTemplate" TargetType="telerik:RadButton">
+        <Grid x:Name="LayoutRoot" Background="Transparent">
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding CornerRadius}" />
+            <mat:FluentControl
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0"
+                EffectMode="Glow"
+                IsSmartClipped="True">
+                <telerik:RadGlyph
+                    x:Name="PinIcon"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Foreground="{TemplateBinding Foreground}"
+                    Glyph="{StaticResource GlyphUnpin}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PinIcon" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RadButtonUnpinStyle" TargetType="telerik:RadButton">
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=IconBrush}" />
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="{telerik:FluentResource ResourceKey=CornerRadius}" />
+        <Setter Property="Template" Value="{StaticResource RadButtonUnpinControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="PopupContentTemplate" TargetType="ContentControl">
+        <Border
+            x:Name="Root"
+            Background="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}"
+            BorderBrush="Transparent"
+            BorderThickness="2">
+            <Grid>
+                <mat:Shadow Background="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" ShadowDepth="Depth1" />
+                <ContentPresenter />
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AutoHideAreaTopTemplate" TargetType="dock:AutoHideArea">
+        <Grid Margin="0,0,0,8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ItemsPresenter x:Name="ItemsPresenterElement" />
+            <Popup
+                x:Name="ContentPopup"
+                Grid.Row="1"
+                AllowsTransparency="True"
+                IsOpen="False">
+                <Grid>
+                    <Grid
+                        x:Name="PopupChild"
+                        MinWidth="50"
+                        MinHeight="50"
+                        Margin="0,6,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ContentControl
+                            x:Name="ContentBackground"
+                            Grid.Row="0"
+                            Margin="0,0,0,2"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Template="{StaticResource PopupContentTemplate}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <dock:PaneHeader
+                                    x:Name="HeaderElement"
+                                    Grid.Row="0"
+                                    SelectedPane="{TemplateBinding SelectedPane}"
+                                    Visibility="{Binding SelectedPane.PaneHeaderVisibility, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                    x:Name="ContentElement"
+                                    Grid.Row="1"
+                                    ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            </Grid>
+                        </ContentControl>
+                        <dock:RadGridResizer
+                            x:Name="Resizer"
+                            Grid.Row="1"
+                            Height="6"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Background="#01010101"
+                            Cursor="SizeNS"
+                            Placement="Bottom" />
+                    </Grid>
+                </Grid>
+            </Popup>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AutoHideAreaBottomTemplate" TargetType="dock:AutoHideArea">
+        <Grid Margin="0,8,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ItemsPresenter x:Name="ItemsPresenterElement" />
+            <Popup
+                x:Name="ContentPopup"
+                AllowsTransparency="True"
+                IsOpen="False"
+                Placement="Top">
+                <Grid>
+                    <Grid
+                        x:Name="PopupChild"
+                        MinWidth="50"
+                        MinHeight="50"
+                        Margin="0,0,0,6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <dock:RadGridResizer
+                            x:Name="Resizer"
+                            Grid.Row="0"
+                            Height="6"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Background="#01010101"
+                            Cursor="SizeNS"
+                            Placement="Top" />
+                        <ContentControl
+                            x:Name="ContentBackground"
+                            Grid.Row="1"
+                            Margin="0,2,0,0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Template="{StaticResource PopupContentTemplate}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <dock:PaneHeader
+                                    x:Name="HeaderElement"
+                                    Grid.Row="0"
+                                    SelectedPane="{TemplateBinding SelectedPane}"
+                                    Visibility="{Binding SelectedPane.PaneHeaderVisibility, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                    x:Name="ContentElement"
+                                    Grid.Row="1"
+                                    ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            </Grid>
+                        </ContentControl>
+                    </Grid>
+                </Grid>
+            </Popup>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AutoHideAreaLeftTemplate" TargetType="dock:AutoHideArea">
+        <Grid Margin="0,0,8,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ItemsPresenter x:Name="ItemsPresenterElement" />
+            <Popup
+                x:Name="ContentPopup"
+                Grid.Column="1"
+                AllowsTransparency="True"
+                IsOpen="False"
+                Placement="Right">
+                <Grid>
+                    <Grid
+                        x:Name="PopupChild"
+                        MinWidth="50"
+                        MinHeight="50"
+                        Margin="6,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl
+                            x:Name="ContentBackground"
+                            Grid.Column="0"
+                            Margin="0,0,2,0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Template="{StaticResource PopupContentTemplate}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <dock:PaneHeader
+                                    x:Name="HeaderElement"
+                                    Grid.Row="0"
+                                    SelectedPane="{TemplateBinding SelectedPane}"
+                                    Visibility="{Binding SelectedPane.PaneHeaderVisibility, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                    x:Name="ContentElement"
+                                    Grid.Row="1"
+                                    ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            </Grid>
+                        </ContentControl>
+                        <dock:RadGridResizer
+                            x:Name="Resizer"
+                            Grid.Column="1"
+                            Width="6"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Background="#01010101"
+                            Cursor="SizeWE"
+                            Placement="Right" />
+                    </Grid>
+                </Grid>
+            </Popup>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AutoHideAreaRightTemplate" TargetType="dock:AutoHideArea">
+        <Grid Margin="8,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ItemsPresenter x:Name="ItemsPresenterElement" Grid.Column="1" />
+            <Popup
+                x:Name="ContentPopup"
+                Grid.Column="1"
+                AllowsTransparency="True"
+                IsOpen="False"
+                Placement="Left">
+                <Grid>
+                    <Grid
+                        x:Name="PopupChild"
+                        MinWidth="50"
+                        MinHeight="50"
+                        Margin="0,0,6,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentControl
+                            x:Name="ContentBackground"
+                            Grid.Column="1"
+                            Margin="2,0,0,0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Template="{StaticResource PopupContentTemplate}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <dock:PaneHeader
+                                    x:Name="HeaderElement"
+                                    Grid.Row="0"
+                                    SelectedPane="{TemplateBinding SelectedPane}"
+                                    Visibility="{Binding SelectedPane.PaneHeaderVisibility, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                    x:Name="ContentElement"
+                                    Grid.Row="1"
+                                    ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            </Grid>
+                        </ContentControl>
+                        <dock:RadGridResizer
+                            x:Name="Resizer"
+                            Grid.Column="0"
+                            Width="6"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Background="#01010101"
+                            Cursor="SizeWE"
+                            Placement="Left" />
+                    </Grid>
+                </Grid>
+            </Popup>
+        </Grid>
+    </ControlTemplate>
+    <ItemsPanelTemplate x:Key="AutoHideAreaItemsPanelTemplate">
+        <telerikNavigationPrimitives:TabStripPanel x:Name="TabStripPanel" />
+    </ItemsPanelTemplate>
+    <Style x:Key="AutoHideAreaStyle" TargetType="dock:AutoHideArea">
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ReorderTabRows" Value="False" />
+        <Setter Property="IsEnabled" Value="True" />
+        <Setter Property="IsTabStop" Value="True" />
+        <Setter Property="Template" Value="{StaticResource AutoHideAreaTopTemplate}" />
+        <Setter Property="TopTemplate" Value="{StaticResource AutoHideAreaTopTemplate}" />
+        <Setter Property="BottomTemplate" Value="{StaticResource AutoHideAreaBottomTemplate}" />
+        <Setter Property="RightTemplate" Value="{StaticResource AutoHideAreaRightTemplate}" />
+        <Setter Property="LeftTemplate" Value="{StaticResource AutoHideAreaLeftTemplate}" />
+        <Setter Property="ItemsPanel" Value="{StaticResource AutoHideAreaItemsPanelTemplate}" />
+        <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource Self}, Path=HasItems, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Style>
+    <ControlTemplate x:Key="TabItemContentPresenterControlTemplate" TargetType="telerikNavigationPrimitives:TabItemContentPresenter">
+        <Border
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter
+                Margin="{TemplateBinding Padding}"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                RecognizesAccessKey="True" />
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="TabItemContentPresenterStyle" TargetType="telerikNavigationPrimitives:TabItemContentPresenter">
+        <Setter Property="Template" Value="{StaticResource TabItemContentPresenterControlTemplate}" />
+        <Setter Property="IsTabStop" Value="False" />
+    </Style>
+    <ControlTemplate x:Key="RadPaneDocumentHostTemplate" TargetType="local:RadPane">
+        <Grid x:Name="wrapper" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border
+                x:Name="BorderVisual"
+                Grid.ColumnSpan="2"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" />
+            <telerik:RadButton
+                x:Name="RadPaneCloseButton"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Command="local:RadDockingCommands.Close"
+                Style="{StaticResource SmallRadButtonDocumentCloseStyle}"
+                Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <mat:FluentControl
+                x:Name="Fluent"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                IsSmartClipped="True">
+                <telerikNavigationPrimitives:TabItemContentPresenter
+                    x:Name="HeaderElement"
+                    MinHeight="36"
+                    Padding="{TemplateBinding Padding}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Header}"
+                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Style="{StaticResource TabItemContentPresenterStyle}" />
+            </mat:FluentControl>
+            <Border
+                x:Name="SelectedVisual"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="{x:Null}"
+                BorderBrush="{TemplateBinding mat:MaterialAssist.FocusBrush}"
+                BorderThickness="0,0,0,3"
+                IsHitTestVisible="False"
+                RenderTransformOrigin="0.5 1">
+                <Border.RenderTransform>
+                    <ScaleTransform ScaleX="0" ScaleY="1" />
+                </Border.RenderTransform>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="HeaderElement" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+            <Trigger Property="IsActive" Value="True">
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+                <Setter Property="Padding" Value="10" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="False">
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+                <Setter Property="Padding" Value="10" />
+            </Trigger>
+
+            <!--  Selected  -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SelectedVisual" Storyboard.TargetProperty="RenderTransform.ScaleX">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.12" Value="1">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <SineEase EasingMode="EaseIn" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SelectedVisual" Storyboard.TargetProperty="RenderTransform.ScaleX">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0">
+                                    <EasingDoubleKeyFrame.EasingFunction>
+                                        <SineEase EasingMode="EaseIn" />
+                                    </EasingDoubleKeyFrame.EasingFunction>
+                                </EasingDoubleKeyFrame>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
+            </MultiTrigger>
+            <Trigger SourceName="Fluent" Property="IsMouseOver" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsPressed" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsActive" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Padding" Value="10" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadPaneTemplate" TargetType="local:RadPane">
+        <Grid x:Name="wrapper">
+            <mat:Shadow
+                x:Name="Shadow"
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}" />
+            <mat:FluentControl
+                x:Name="Fluent"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                IsSmartClipped="True">
+                <telerikNavigationPrimitives:TabItemContentPresenter
+                    x:Name="HeaderElement"
+                    MinHeight="18"
+                    Padding="{TemplateBinding Padding}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Header}"
+                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Style="{StaticResource TabItemContentPresenterStyle}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPinned" Value="False">
+                <Setter TargetName="Shadow" Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+                <Setter Property="mat:MaterialAssist.CornerRadius" Value="{telerik:FluentResource ResourceKey=CornerRadius}" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Trigger>
+            <Trigger Property="IsPinned" Value="True">
+                <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth0" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="HeaderElement" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsMouseOver" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsPressed" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadPaneBottomTemplate" TargetType="local:RadPane">
+        <Grid x:Name="wrapper" Background="Transparent">
+            <mat:Shadow
+                Background="{TemplateBinding Background}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <Border
+                x:Name="BorderVisual"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}" />
+            <mat:FluentControl
+                x:Name="Fluent"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                IsSmartClipped="True">
+                <telerikNavigationPrimitives:TabItemContentPresenter
+                    x:Name="HeaderElement"
+                    MinHeight="18"
+                    Padding="{TemplateBinding Padding}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Header}"
+                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                    Foreground="{TemplateBinding Foreground}"
+                    Style="{StaticResource TabItemContentPresenterStyle}" />
+            </mat:FluentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPinned" Value="False">
+                <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+                <Setter Property="mat:MaterialAssist.CornerRadius" Value="{telerik:FluentResource ResourceKey=CornerRadius}" />
+                <Setter Property="Margin" Value="0,0,8,0" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsPinned" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="BorderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="HeaderElement" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+            <Trigger Property="IsPinned" Value="True">
+                <Setter TargetName="BorderVisual" Property="Margin" Value="0,-2,0,0" />
+                <Setter TargetName="BorderVisual" Property="BorderThickness" Value="0,2,0,0" />
+                <Setter TargetName="BorderVisual" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsPinned" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="False" />
+                    <Condition Property="IsPinned" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsActive" Value="True">
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsMouseOver" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsPressed" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsActive" Value="True" />
+                    <Condition Property="IsPinned" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="BorderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadPaneTopTemplate" TargetType="local:RadPane">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="wrapper" Grid.RowSpan="2">
+                <mat:Shadow
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                    ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                <Border
+                    x:Name="BorderVisual"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}" />
+                <mat:FluentControl
+                    x:Name="Fluent"
+                    CornerRadius="{TemplateBinding mat:MaterialAssist.CornerRadius}"
+                    IsSmartClipped="True">
+                    <telerikNavigationPrimitives:TabItemContentPresenter
+                        x:Name="HeaderElement"
+                        MinHeight="0"
+                        Padding="{TemplateBinding Padding}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Style="{StaticResource TabItemContentPresenterStyle}" />
+                </mat:FluentControl>
+            </Grid>
+            <Border
+                x:Name="StandAloneContent"
+                Grid.Row="1"
+                Background="{telerik:FluentResource ResourceKey=MainBrush}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="0,1,0,0"
+                Visibility="Collapsed">
+                <ContentPresenter />
+            </Border>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="DisplayMode">
+                    <VisualState x:Name="Grouped" />
+                    <VisualState x:Name="StandAlone">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StandAloneContent" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="wrapper" Storyboard.TargetProperty="(Grid.RowSpan)">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <sys:Int32>1</sys:Int32>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="wrapper" Storyboard.TargetProperty="HorizontalAlignment">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <HorizontalAlignment>Left</HorizontalAlignment>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPinned" Value="False">
+                <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+                <Setter Property="mat:MaterialAssist.CornerRadius" Value="{telerik:FluentResource ResourceKey=CornerRadius}" />
+                <Setter Property="Margin" Value="0,0,8,0" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsPinned" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="BorderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="HeaderElement" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsMouseOver" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.MouseOverBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <Trigger SourceName="Fluent" Property="IsPressed" Value="True">
+                <Setter TargetName="BorderVisual" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mat:MaterialAssist.PressedBrush), Mode=OneWay}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsPinned" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsActive" Value="True">
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsActive" Value="True" />
+                    <Condition Property="IsPinned" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="BorderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <DataTemplate x:Key="RadPaneContextMenuTemplate">
+        <telerikNavigation:RadContextMenu InheritDataContext="False">
+            <telerikNavigation:RadMenuItem
+                Command="local:RadDockingCommands.Floating"
+                CommandParameter="{Binding}"
+                CommandTarget="{Binding}"
+                IsChecked="{Binding IsFloatingOnly}" />
+            <telerikNavigation:RadMenuItem
+                Command="local:RadDockingCommands.Dockable"
+                CommandParameter="{Binding}"
+                CommandTarget="{Binding}"
+                IsChecked="{Binding IsDockableOptionChecked}" />
+            <telerikNavigation:RadMenuItem
+                Command="local:RadDockingCommands.TabbedDocument"
+                CommandParameter="{Binding}"
+                CommandTarget="{Binding}"
+                IsChecked="{Binding IsInDocumentHost}" />
+            <telerikNavigation:RadMenuItem
+                Command="local:RadDockingCommands.Pin"
+                CommandParameter="{Binding}"
+                CommandTarget="{Binding}"
+                IsChecked="{Binding IsPinned, Converter={StaticResource InvertedBooleanConverter}}" />
+            <telerikNavigation:RadMenuItem
+                Command="local:RadDockingCommands.Close"
+                CommandParameter="{Binding}"
+                CommandTarget="{Binding}"
+                IsChecked="{Binding IsHidden}" />
+        </telerikNavigation:RadContextMenu>
+    </DataTemplate>
+    <Style x:Key="RadPaneStyle" TargetType="local:RadPane">
+        <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="mat:MaterialAssist.MouseOverBrush" Value="{telerik:FluentResource ResourceKey=MouseOverBrush}" />
+        <Setter Property="mat:MaterialAssist.PressedBrush" Value="{telerik:FluentResource ResourceKey=PressedBrush}" />
+        <Setter Property="mat:MaterialAssist.FocusBrush" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+        <Setter Property="mat:MaterialAssist.CornerRadius" Value="0" />
+        <Setter Property="FontFamily" Value="{telerik:FluentResource ResourceKey=FontFamily}" />
+        <Setter Property="FontSize" Value="{telerik:FluentResource ResourceKey=FontSize}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="7" />
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="MinWidth" Value="28" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="Template" Value="{StaticResource RadPaneBottomTemplate}" />
+        <Setter Property="LeftTemplate" Value="{StaticResource RadPaneTemplate}" />
+        <Setter Property="TopTemplate" Value="{StaticResource RadPaneTopTemplate}" />
+        <Setter Property="RightTemplate" Value="{StaticResource RadPaneTemplate}" />
+        <Setter Property="BottomTemplate" Value="{StaticResource RadPaneBottomTemplate}" />
+        <Setter Property="DocumentHostTemplate" Value="{StaticResource RadPaneDocumentHostTemplate}" />
+        <Setter Property="ContextMenuTemplate" Value="{StaticResource RadPaneContextMenuTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="DraggedElementVisualCueTemplate">
+        <Grid>
+            <Border
+                x:Name="DragBackgroundVisual"
+                Margin="0,0,0,4"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Opacity="0.1" />
+            <Border Margin="0,0,0,4" Padding="{TemplateBinding BorderThickness}">
+                <TextBlock
+                    Margin="{TemplateBinding Padding}"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Text="{Binding Title}" />
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    <Style TargetType="dock:DraggedElementVisualCue">
+        <Setter Property="FontFamily" Value="{telerik:FluentResource ResourceKey=FontFamily}" />
+        <Setter Property="FontSize" Value="{telerik:FluentResource ResourceKey=FontSize}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=AccentPressedBrush}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentPressedBrush}" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="Template" Value="{StaticResource DraggedElementVisualCueTemplate}" />
+    </Style>
+    <Style x:Key="GridResizerPreviewStyle" TargetType="Control">
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=AccentPressedBrush}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="MinWidth" Value="10" />
+        <Setter Property="MinHeight" Value="10" />
+        <Setter Property="Opacity" Value="0.10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="RadGridResizerControlTemplate" TargetType="dock:RadGridResizer">
+        <Grid x:Name="Root">
+            <Border
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" />
+        </Grid>
+    </ControlTemplate>
+    <Style x:Key="RadGridResizerStyle" TargetType="dock:RadGridResizer">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="True" />
+        <Setter Property="MinWidth" Value="2" />
+        <Setter Property="MinHeight" Value="2" />
+        <Setter Property="PreviewStyle" Value="{StaticResource GridResizerPreviewStyle}" />
+        <Setter Property="Template" Value="{StaticResource RadGridResizerControlTemplate}" />
+        <Setter Property="Panel.ZIndex" Value="100" />
+        <Style.Triggers>
+            <Trigger Property="Placement" Value="Top">
+                <Setter Property="Cursor" Value="SizeNS" />
+            </Trigger>
+            <Trigger Property="Placement" Value="Right">
+                <Setter Property="Cursor" Value="SizeWE" />
+            </Trigger>
+            <Trigger Property="Placement" Value="Bottom">
+                <Setter Property="Cursor" Value="SizeNS" />
+            </Trigger>
+            <Trigger Property="Placement" Value="Left">
+                <Setter Property="Cursor" Value="SizeWE" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="RadSplitContainerStyle" TargetType="local:RadSplitContainer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadSplitContainer">
+                    <Grid>
+                        <Border
+                            x:Name="BorderVisual"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ItemsPresenter />
+                        </Border>
+                        <dock:RadGridResizer
+                            x:Name="DockResizer"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Placement="Left"
+                            ShowsPreview="True"
+                            Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="SplitterPosition">
+                            <Trigger.Value>
+                                <Dock>Left</Dock>
+                            </Trigger.Value>
+                            <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DockResizer" Property="Width" Value="10" />
+                            <Setter TargetName="BorderVisual" Property="Margin" Value="10,0,0,0" />
+                            <Setter TargetName="DockResizer" Property="Cursor" Value="SizeWE" />
+                        </Trigger>
+                        <Trigger Property="SplitterPosition">
+                            <Trigger.Value>
+                                <Dock>Top</Dock>
+                            </Trigger.Value>
+                            <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DockResizer" Property="VerticalAlignment" Value="Top" />
+                            <Setter TargetName="DockResizer" Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter TargetName="DockResizer" Property="Cursor" Value="SizeNS" />
+                            <Setter TargetName="DockResizer" Property="Placement">
+                                <Setter.Value>
+                                    <Dock>Top</Dock>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="DockResizer" Property="Height" Value="10" />
+                            <Setter TargetName="BorderVisual" Property="Margin" Value="0,10,0,0" />
+                        </Trigger>
+                        <Trigger Property="SplitterPosition">
+                            <Trigger.Value>
+                                <Dock>Right</Dock>
+                            </Trigger.Value>
+                            <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DockResizer" Property="Width" Value="10" />
+                            <Setter TargetName="BorderVisual" Property="Margin" Value="0,0,10,0" />
+                            <Setter TargetName="DockResizer" Property="HorizontalAlignment" Value="Right" />
+                            <Setter TargetName="DockResizer" Property="Cursor" Value="SizeWE" />
+                            <Setter TargetName="DockResizer" Property="Placement">
+                                <Setter.Value>
+                                    <Dock>Right</Dock>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="SplitterPosition">
+                            <Trigger.Value>
+                                <Dock>Bottom</Dock>
+                            </Trigger.Value>
+                            <Setter TargetName="DockResizer" Property="Cursor" Value="SizeNS" />
+                            <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="DockResizer" Property="VerticalAlignment" Value="Bottom" />
+                            <Setter TargetName="DockResizer" Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter TargetName="DockResizer" Property="Height" Value="10" />
+                            <Setter TargetName="DockResizer" Property="Placement">
+                                <Setter.Value>
+                                    <Dock>Bottom</Dock>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="BorderVisual" Property="Margin" Value="0,0,0,10" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MinWidth" Value="15" />
+        <Setter Property="MinHeight" Value="15" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <local:ProportionalStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="PaneHeaderControlTemplate" TargetType="dock:PaneHeader">
+        <Border
+            x:Name="LayoutRoot"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="Content">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="0" />
+                </Grid.ColumnDefinitions>
+                <ContentControl
+                    x:Name="TitleElement"
+                    Margin="{TemplateBinding Padding}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    HorizontalContentAlignment="Stretch"
+                    Content="{Binding SelectedPane.Title, RelativeSource={RelativeSource TemplatedParent}}"
+                    ContentTemplate="{Binding SelectedPane.TitleTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                    FontFamily="{TemplateBinding FontFamily}"
+                    FontSize="{TemplateBinding FontSize}"
+                    Foreground="{TemplateBinding Foreground}"
+                    IsTabStop="False" />
+                <telerik:RadDropDownButton
+                    x:Name="HeaderDropDownMenu"
+                    Grid.Column="1"
+                    Margin="0"
+                    Command="local:RadDockingCommands.ContextMenuOpen"
+                    CommandParameter="{TemplateBinding SelectedPane}"
+                    IsTabStop="{TemplateBinding IsTabStop}"
+                    Style="{StaticResource DropDownButtonDropDownStyle}" />
+                <Grid
+                    Grid.Column="2"
+                    MinWidth="28"
+                    Margin="0"
+                    Visibility="{Binding SelectedPane.PinButtonVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+                    <telerik:RadButton
+                        x:Name="HeaderPinButton"
+                        Command="local:RadDockingCommands.Pin"
+                        CommandParameter="{TemplateBinding SelectedPane}"
+                        IsTabStop="{TemplateBinding IsTabStop}"
+                        Style="{StaticResource RadButtonPinStyle}" />
+                    <telerik:RadButton
+                        x:Name="HeaderUnPinButton"
+                        Command="local:RadDockingCommands.Pin"
+                        CommandParameter="{TemplateBinding SelectedPane}"
+                        IsTabStop="{TemplateBinding IsTabStop}"
+                        Style="{StaticResource RadButtonUnpinStyle}"
+                        Visibility="Collapsed" />
+                </Grid>
+                <telerik:RadButton
+                    x:Name="HeaderCloseButton"
+                    Grid.Column="3"
+                    Margin="0,0,5,0"
+                    VerticalAlignment="Center"
+                    Command="local:RadDockingCommands.Close"
+                    CommandParameter="{TemplateBinding SelectedPane}"
+                    IsTabStop="{TemplateBinding IsTabStop}"
+                    Style="{StaticResource RadButtonCloseStyle}" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding SelectedPane.IsPinned, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                <Setter TargetName="HeaderUnPinButton" Property="Visibility" Value="Visible" />
+                <Setter TargetName="HeaderPinButton" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=SelectedPane.(telerikNavigation:RadContextMenu.ContextMenu).HasItems, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                <Setter TargetName="HeaderDropDownMenu" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=SelectedPane.ContextMenuTemplate, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                <Setter TargetName="HeaderDropDownMenu" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter TargetName="LayoutRoot" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderPinButton" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+                <Setter TargetName="HeaderUnPinButton" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+                <Setter TargetName="HeaderCloseButton" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+                <Setter TargetName="HeaderDropDownMenu" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+                <Setter TargetName="TitleElement" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="TitleElement" Property="Opacity" Value="{telerik:FluentResource ResourceKey=DisabledOpacity}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="PaneHeaderStyle" TargetType="dock:PaneHeader">
+        <Setter Property="FontFamily" Value="{telerik:FluentResource ResourceKey=FontFamily}" />
+        <Setter Property="FontSize" Value="{telerik:FluentResource ResourceKey=FontSize}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=MainBrush}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template" Value="{StaticResource PaneHeaderControlTemplate}" />
+        <Setter Property="dock:InputBindingsManager.InputBindings">
+            <Setter.Value>
+                <InputBindingCollection>
+                    <MouseBinding Command="local:RadDockingCommands.PaneHeaderMenuOpen">
+                        <MouseBinding.Gesture>
+                            <MouseGesture MouseAction="RightClick" />
+                        </MouseBinding.Gesture>
+                    </MouseBinding>
+                </InputBindingCollection>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="RadPaneGroupDocumentHostControlTemplate" TargetType="local:RadPaneGroup">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <mat:Shadow
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Background="{TemplateBinding Background}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <dock:RadGridResizer
+                x:Name="DockResizer"
+                Placement="Left"
+                ShowsPreview="True"
+                Visibility="Collapsed" />
+            <Grid
+                x:Name="ItemsContainer"
+                Grid.Row="1"
+                Grid.Column="1"
+                Background="{TemplateBinding HeaderBackground}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <RepeatButton
+                    x:Name="LeftScrollButtonElement"
+                    Style="{StaticResource RepeatButtonScrollLeftStyle}"
+                    Visibility="{Binding ComputedHorizontalScrollBarVisibility, ElementName=ScrollViewerElement}" />
+                <ScrollViewer
+                    x:Name="ScrollViewerElement"
+                    Grid.Column="1"
+                    HorizontalScrollBarVisibility="{Binding (ScrollViewer.HorizontalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}">
+                    <ScrollViewer.Template>
+                        <ControlTemplate TargetType="ScrollViewer">
+                            <ScrollContentPresenter x:Name="ScrollContentPresenter" />
+                        </ControlTemplate>
+                    </ScrollViewer.Template>
+                    <ItemsPresenter x:Name="ItemsPresenterElement" />
+                </ScrollViewer>
+                <RepeatButton
+                    x:Name="RightScrollButtonElement"
+                    Grid.Column="2"
+                    Style="{StaticResource RepeatButtonScrollRightStyle}"
+                    Visibility="{Binding ComputedHorizontalScrollBarVisibility, ElementName=ScrollViewerElement}" />
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="0,0,5,0"
+                    Orientation="Horizontal">
+                    <telerik:RadDropDownButton
+                        x:Name="DropDownButtonElement"
+                        DropDownButtonPosition="Left"
+                        DropDownPlacement="Bottom"
+                        Focusable="False"
+                        IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                        Style="{StaticResource DropDownButtonDocumentDropDownStyle}"
+                        Visibility="Collapsed">
+                        <telerik:RadDropDownButton.DropDownContent>
+                            <telerikTabControl:DropDownMenu
+                                x:Name="DropDownMenuElement"
+                                Background="{telerik:FluentResource ResourceKey=AlternativeBrush}"
+                                DisplayMemberPath="{TemplateBinding DropDownDisplayMemberPath}"
+                                IconColumnWidth="0"
+                                ItemTemplate="{TemplateBinding ItemDropDownContentTemplate}"
+                                ItemTemplateSelector="{TemplateBinding ItemDropDownContentTemplateSelector}"
+                                Placement="Bottom"
+                                StaysOpen="False" />
+                        </telerik:RadDropDownButton.DropDownContent>
+                    </telerik:RadDropDownButton>
+                    <telerik:RadButton
+                        x:Name="CloseButton"
+                        Command="local:RadDockingCommands.Close"
+                        Style="{StaticResource RadButtonDocumentCloseStyle}"
+                        Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Grid>
+            <Grid
+                Grid.Row="2"
+                Grid.Column="1"
+                Background="{TemplateBinding Background}">
+                <Grid Margin="5">
+                    <ContentPresenter
+                        x:Name="ContentElement"
+                        ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                        Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
+                    <Grid x:Name="ContentElementsPanel" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </Grid>
+            </Grid>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="DropDownDisplayStates">
+                    <VisualState x:Name="DropDownButtonCollapsed" />
+                    <VisualState x:Name="DropDownButtonVisible">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DropDownButtonElement" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Left</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.RowSpan" Value="3" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Left" />
+                <Setter TargetName="DockResizer" Property="Width" Value="10" />
+            </Trigger>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Top</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.ColumnSpan" Value="2" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Top" />
+                <Setter TargetName="DockResizer" Property="MinHeight" Value="10" />
+                <Setter TargetName="DockResizer" Property="VerticalAlignment" Value="Top" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadPaneGroupDefaultControlTemplate" TargetType="local:RadPaneGroup">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <mat:Shadow
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Background="{TemplateBinding Background}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <Border
+                x:Name="HeaderContainer"
+                Grid.Row="1"
+                Grid.Column="1">
+                <dock:PaneHeader
+                    x:Name="HeaderElement"
+                    SelectedPane="{TemplateBinding SelectedPane}"
+                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem.PaneHeaderVisibility}" />
+            </Border>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <ContentPresenter
+                    x:Name="ContentElement"
+                    Margin="1"
+                    ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
+                <Grid x:Name="ContentElementsPanel" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+            <Border
+                x:Name="ItemsContainer"
+                Grid.Row="3"
+                Grid.Column="1">
+                <ItemsPresenter x:Name="ItemsPresenterElement" />
+            </Border>
+            <dock:RadGridResizer
+                x:Name="DockResizer"
+                Placement="Left"
+                ShowsPreview="True"
+                Visibility="Collapsed" />
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="AutoCollapseStates">
+                    <VisualState x:Name="SingleItem">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames
+                                Storyboard.TargetName="ItemsContainer"
+                                Storyboard.TargetProperty="Visibility"
+                                Duration="0">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="TwoOrMoreItems" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPaneHeaderVisible" Value="False">
+                <Setter TargetName="HeaderContainer" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Left</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.RowSpan" Value="4" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Left" />
+                <Setter TargetName="DockResizer" Property="MinWidth" Value="10" />
+            </Trigger>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Top</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.ColumnSpan" Value="2" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Top" />
+                <Setter TargetName="DockResizer" Property="MinHeight" Value="10" />
+                <Setter TargetName="DockResizer" Property="VerticalAlignment" Value="Top" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadPaneGroupTopControlTemplate" TargetType="local:RadPaneGroup">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <dock:RadGridResizer
+                x:Name="DockResizer"
+                Placement="Left"
+                ShowsPreview="True"
+                Visibility="Collapsed" />
+            <mat:Shadow
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="1"
+                Background="{TemplateBinding Background}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <Grid Grid.Row="1" Grid.Column="1">
+                <ContentPresenter
+                    x:Name="ContentElement"
+                    Margin="1"
+                    ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
+                <Grid x:Name="ContentElementsPanel" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsContentPreserved, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+            <Grid x:Name="ItemsContainer" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ItemsPresenter x:Name="ItemsPresenterElement" Margin="0,2,0,0" />
+                <telerik:RadButton
+                    x:Name="CloseButton"
+                    Grid.Column="1"
+                    Command="local:RadDockingCommands.Close"
+                    Style="{StaticResource RadButtonDocumentCloseStyle}"
+                    Visibility="{Binding IsEnabled, RelativeSource={RelativeSource Self}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Left</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.RowSpan" Value="3" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Left" />
+                <Setter TargetName="DockResizer" Property="MinWidth" Value="10" />
+            </Trigger>
+            <Trigger Property="SplitterPosition">
+                <Trigger.Value>
+                    <Dock>Top</Dock>
+                </Trigger.Value>
+                <Setter TargetName="DockResizer" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DockResizer" Property="Grid.ColumnSpan" Value="2" />
+                <Setter TargetName="DockResizer" Property="Placement" Value="Top" />
+                <Setter TargetName="DockResizer" Property="MinHeight" Value="10" />
+                <Setter TargetName="DockResizer" Property="VerticalAlignment" Value="Top" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ItemsPanelTemplate x:Key="RadPaneGroupItemsPanelTemplate">
+        <telerikNavigationPrimitives:TabStripPanel />
+    </ItemsPanelTemplate>
+    <Style x:Key="RadPaneGroupStyle" TargetType="local:RadPaneGroup">
+        <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="HeaderBackground" Value="{telerik:FluentResource ResourceKey=MainBrush}" />
+        <Setter Property="FontFamily" Value="{telerik:FluentResource ResourceKey=FontFamily}" />
+        <Setter Property="FontSize" Value="{telerik:FluentResource ResourceKey=FontSize}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Align" Value="Left" />
+        <Setter Property="TabStripPlacement" Value="Bottom" />
+        <Setter Property="AllTabsEqualHeight" Value="True" />
+        <Setter Property="BackgroundVisibility" Value="Visible" />
+        <Setter Property="MinWidth" Value="15" />
+        <Setter Property="MinHeight" Value="15" />
+        <Setter Property="AllowDrop" Value="True" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{StaticResource RadPaneGroupDefaultControlTemplate}" />
+        <Setter Property="BottomTemplate" Value="{StaticResource RadPaneGroupDefaultControlTemplate}" />
+        <Setter Property="TopTemplate" Value="{StaticResource RadPaneGroupTopControlTemplate}" />
+        <Setter Property="DocumentHostTemplate" Value="{StaticResource RadPaneGroupDocumentHostControlTemplate}" />
+        <Setter Property="LeftTemplate" Value="{StaticResource RadPaneGroupDefaultControlTemplate}" />
+        <Setter Property="RightTemplate" Value="{StaticResource RadPaneGroupDefaultControlTemplate}" />
+        <Setter Property="ItemsPanel" Value="{StaticResource RadPaneGroupItemsPanelTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="ToolWindowControlTemplate" TargetType="dock:ToolWindow">
+        <Grid x:Name="VisualRoot" Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="36" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <mat:Shadow
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Background="{TemplateBinding Background}"
+                ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+            <Border
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" />
+            <Border
+                x:Name="HeaderVisual"
+                Grid.ColumnSpan="3"
+                Background="{telerik:FluentResource ResourceKey=MainBrush}"
+                BorderBrush="Transparent"
+                BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessToOrientedThicknessConverter}, ConverterParameter=LeftTopRight}" />
+            <Border x:Name="HeaderElement" Background="Transparent">
+                <Border.InputBindings>
+                    <MouseBinding Command="local:RadDockingCommands.PaneHeaderMenuOpen">
+                        <MouseBinding.Gesture>
+                            <MouseGesture MouseAction="RightClick" />
+                        </MouseBinding.Gesture>
+                    </MouseBinding>
+                </Border.InputBindings>
+                <ContentControl
+                    x:Name="Header"
+                    Margin="10,0"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Content="{TemplateBinding Header}"
+                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                    FontFamily="{TemplateBinding FontFamily}"
+                    FontSize="{TemplateBinding FontSize}"
+                    IsTabStop="False" />
+            </Border>
+            <telerik:RadButton
+                x:Name="CloseButton"
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                VerticalAlignment="Center"
+                Command="{x:Static telerik:WindowCommands.Close}"
+                Style="{StaticResource RadButtonCloseStyle}"
+                UseLayoutRounding="True" />
+            <ContentPresenter
+                x:Name="Content"
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Margin="{TemplateBinding Padding}"
+                Content="{TemplateBinding Content}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="HeaderVisual" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentBrush}" />
+                <Setter TargetName="CloseButton" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+                <Setter TargetName="Header" Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}" />
+            </Trigger>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="VisualRoot" Property="Margin" Value="0" />
+                <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth0" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="ToolWindowStyle" TargetType="dock:ToolWindow">
+        <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="FontFamily" Value="{telerik:FluentResource ResourceKey=FontFamily}" />
+        <Setter Property="FontSize" Value="{telerik:FluentResource ResourceKey=FontSize}" />
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="CaptionHeight" Value="39" />
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=PrimaryBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="MinWidth" Value="85" />
+        <Setter Property="MinHeight" Value="31" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template" Value="{StaticResource ToolWindowControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="CompassControlTemplate" TargetType="dock:Compass">
+        <Border
+            Width="168"
+            Height="168"
+            Background="{TemplateBinding Background}"
+            UseLayoutRounding="True">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="PART_LeftIndicator"
+                    Grid.Row="1"
+                    Width="36"
+                    Height="36"
+                    Margin="0,0,4,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="18"
+                    SnapsToDevicePixels="True">
+                    <Grid>
+                        <mat:Shadow
+                            Background="{Binding Background, ElementName=PART_LeftIndicator}"
+                            CornerRadius="18"
+                            ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                        <telerik:RadGlyph
+                            x:Name="LeftPlacementIndicator"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                            Glyph="{StaticResource GlyphArrowChevronLeft}" />
+                    </Grid>
+                </Border>
+                <Border
+                    x:Name="PART_RightIndicator"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="36"
+                    Height="36"
+                    Margin="4,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="18"
+                    SnapsToDevicePixels="True">
+                    <Grid>
+                        <mat:Shadow
+                            Background="{Binding Background, ElementName=PART_RightIndicator}"
+                            CornerRadius="18"
+                            ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                        <telerik:RadGlyph
+                            x:Name="RightPlacementIndicator"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                            Glyph="{StaticResource GlyphArrowChevronRight}" />
+                    </Grid>
+                </Border>
+                <Border
+                    x:Name="PART_BottomIndicator"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="36"
+                    Height="36"
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="18"
+                    SnapsToDevicePixels="True">
+                    <Grid>
+                        <mat:Shadow
+                            Background="{Binding Background, ElementName=PART_BottomIndicator}"
+                            CornerRadius="18"
+                            ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                        <telerik:RadGlyph
+                            x:Name="BottomPlacementIndicator"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                            Glyph="{StaticResource GlyphArrowChevronDown}" />
+                    </Grid>
+                </Border>
+                <Border
+                    x:Name="PART_TopIndicator"
+                    Grid.Column="1"
+                    Width="36"
+                    Height="36"
+                    Margin="0,0,0,4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="18"
+                    SnapsToDevicePixels="True">
+                    <Grid>
+                        <mat:Shadow
+                            Background="{Binding Background, ElementName=PART_TopIndicator}"
+                            CornerRadius="18"
+                            ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                        <telerik:RadGlyph
+                            x:Name="TopPlacementIndicator"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                            Glyph="{StaticResource GlyphArrowChevronUp}" />
+                    </Grid>
+                </Border>
+                <Border
+                    x:Name="PART_CenterIndicator"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="55"
+                    Height="55"
+                    Margin="0"
+                    Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="28"
+                    SnapsToDevicePixels="True">
+                    <Grid>
+                        <mat:Shadow
+                            Background="{Binding Background, ElementName=PART_CenterIndicator}"
+                            CornerRadius="28"
+                            ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                        <Ellipse
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Fill="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                            Stroke="{x:Null}"
+                            StrokeThickness="0" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="DockPosition" Value="Left">
+                <Setter TargetName="PART_LeftIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_LeftIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Top">
+                <Setter TargetName="PART_TopIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_TopIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Right">
+                <Setter TargetName="PART_RightIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_RightIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Bottom">
+                <Setter TargetName="PART_BottomIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_BottomIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Center">
+                <Setter TargetName="PART_CenterIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_CenterIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="IsLeftIndicatorVisible" Value="False">
+                <Setter TargetName="PART_LeftIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsTopIndicatorVisible" Value="False">
+                <Setter TargetName="PART_TopIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsRightIndicatorVisible" Value="False">
+                <Setter TargetName="PART_RightIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsBottomIndicatorVisible" Value="False">
+                <Setter TargetName="PART_BottomIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsCenterIndicatorVisible" Value="False">
+                <Setter TargetName="PART_CenterIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="CompassStyle" TargetType="dock:Compass">
+        <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth2" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="Template" Value="{StaticResource CompassControlTemplate}" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+    </Style>
+    <ControlTemplate x:Key="RootCompassControlTemplate" TargetType="dock:Compass">
+        <Grid x:Name="VisualRoot">
+            <Border
+                x:Name="PART_LeftIndicator"
+                Grid.Row="1"
+                Width="36"
+                Height="36"
+                Margin="4,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="18"
+                SnapsToDevicePixels="True">
+                <Grid>
+                    <mat:Shadow
+                        Background="{Binding Background, ElementName=PART_LeftIndicator}"
+                        CornerRadius="18"
+                        ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                    <telerik:RadGlyph
+                        x:Name="LeftPlacementIndicator"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                        Glyph="{StaticResource GlyphArrowChevronLeft}" />
+                </Grid>
+            </Border>
+            <Border
+                x:Name="PART_RightIndicator"
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="36"
+                Height="36"
+                Margin="0,0,4,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="18"
+                SnapsToDevicePixels="True">
+                <Grid>
+                    <mat:Shadow
+                        Background="{Binding Background, ElementName=PART_RightIndicator}"
+                        CornerRadius="18"
+                        ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                    <telerik:RadGlyph
+                        x:Name="RightPlacementIndicator"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                        Glyph="{StaticResource GlyphArrowChevronRight}" />
+                </Grid>
+            </Border>
+            <Border
+                x:Name="PART_BottomIndicator"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="36"
+                Height="36"
+                Margin="0,0,0,4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="18"
+                SnapsToDevicePixels="True">
+                <Grid>
+                    <mat:Shadow
+                        Background="{Binding Background, ElementName=PART_BottomIndicator}"
+                        CornerRadius="18"
+                        ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                    <telerik:RadGlyph
+                        x:Name="BottomPlacementIndicator"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                        Glyph="{StaticResource GlyphArrowChevronDown}" />
+                </Grid>
+            </Border>
+            <Border
+                x:Name="PART_TopIndicator"
+                Grid.Column="1"
+                Width="36"
+                Height="36"
+                Margin="0,4,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Background="{telerik:FluentResource ResourceKey=AccentBrush}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="18"
+                SnapsToDevicePixels="True">
+                <Grid>
+                    <mat:Shadow
+                        Background="{Binding Background, ElementName=PART_TopIndicator}"
+                        CornerRadius="18"
+                        ShadowDepth="{TemplateBinding mat:MaterialAssist.ShadowDepth}" />
+                    <telerik:RadGlyph
+                        x:Name="TopPlacementIndicator"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="24"
+                        Foreground="{telerik:FluentResource ResourceKey=MarkerInvertedBrush}"
+                        Glyph="{StaticResource GlyphArrowChevronUp}" />
+                </Grid>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="DockPosition" Value="Left">
+                <Setter TargetName="PART_LeftIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_LeftIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Top">
+                <Setter TargetName="PART_TopIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_TopIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Right">
+                <Setter TargetName="PART_RightIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_RightIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="DockPosition" Value="Bottom">
+                <Setter TargetName="PART_BottomIndicator" Property="Background" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+                <Setter TargetName="PART_BottomIndicator" Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentMouseOverBrush}" />
+            </Trigger>
+            <Trigger Property="IsLeftIndicatorVisible" Value="False">
+                <Setter TargetName="PART_LeftIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsTopIndicatorVisible" Value="False">
+                <Setter TargetName="PART_TopIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsRightIndicatorVisible" Value="False">
+                <Setter TargetName="PART_RightIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsBottomIndicatorVisible" Value="False">
+                <Setter TargetName="PART_BottomIndicator" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RootCompassStyle" TargetType="dock:RootCompass">
+        <Setter Property="mat:MaterialAssist.ShadowDepth" Value="Depth2" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Panel.ZIndex" Value="100" />
+        <Setter Property="Template" Value="{StaticResource RootCompassControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="VisualCueControlTemplate" TargetType="dock:VisualCue">
+        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <Border Background="{TemplateBinding Background}" Opacity="0.20" />
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="VisualCueStyle" TargetType="dock:VisualCue">
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=AccentPressedBrush}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=AccentPressedBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template" Value="{StaticResource VisualCueControlTemplate}" />
+    </Style>
+    <Style x:Key="DocumentHostStyle" TargetType="dock:DocumentHost">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinWidth" Value="48" />
+        <Setter Property="MinHeight" Value="48" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="AllowDrop" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="dock:DocumentHost">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="RadDockingControlTemplate" TargetType="local:RadDocking">
+        <Grid x:Name="Root">
+            <Border
+                x:Name="Border"
+                Padding="{TemplateBinding Padding}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                <telerik:RadDockPanel x:Name="RootDockPanel">
+                    <dock:AutoHideArea
+                        x:Name="LeftAutoHide"
+                        telerik:RadDockPanel.Dock="Left"
+                        BackgroundVisibility="Collapsed"
+                        TabOrientation="Vertical"
+                        TabStripPlacement="Left" />
+                    <dock:AutoHideArea
+                        x:Name="RightAutoHide"
+                        telerik:RadDockPanel.Dock="Right"
+                        BackgroundVisibility="Collapsed"
+                        TabOrientation="Vertical"
+                        TabStripPlacement="Right" />
+                    <dock:AutoHideArea
+                        x:Name="TopAutoHide"
+                        telerik:RadDockPanel.Dock="Top"
+                        BackgroundVisibility="Collapsed"
+                        TabOrientation="Horizontal"
+                        TabStripPlacement="Top" />
+                    <dock:AutoHideArea
+                        x:Name="BottomAutoHide"
+                        telerik:RadDockPanel.Dock="Bottom"
+                        BackgroundVisibility="Collapsed"
+                        TabOrientation="Horizontal"
+                        TabStripPlacement="Bottom" />
+                    <local:DockingPanel x:Name="ContentDockPanel" Margin="0">
+                        <dock:DocumentHost x:Name="DocumentHost" IsTabStop="{TemplateBinding IsTabStop}" />
+                    </local:DockingPanel>
+                </telerik:RadDockPanel>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    <telerikAnimation:AnimationSelector x:Key="RadDockingAnimationSelector">
+        <telerikAnimation:AnimationGroup AnimationName="Move">
+            <telerikAnimation:MoveAnimation />
+            <telerikAnimation:ResizeAnimation />
+            <telerikAnimation:FadeAnimation Direction="In" />
+            <telerikAnimation:ScaleAnimation
+                Direction="In"
+                MaxScale="1.0"
+                MinScale="0.7" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="Show">
+            <telerikAnimation:FadeAnimation Direction="In" />
+            <telerikAnimation:ScaleAnimation
+                Direction="In"
+                MaxScale="1.0"
+                MinScale="0.95" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="Hide" SpeedRatio="0.7">
+            <telerikAnimation:FadeAnimation Direction="Out" />
+            <telerikAnimation:ScaleAnimation
+                Direction="Out"
+                MaxScale="1.0"
+                MinScale="0.7" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="LeftIn">
+            <telerikAnimation:SlideAnimation
+                Direction="In"
+                Orientation="Horizontal"
+                SlideMode="Top"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideInAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="LeftOut">
+            <telerikAnimation:SlideAnimation
+                Direction="Out"
+                Orientation="Horizontal"
+                SlideMode="Top"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideOutAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="TopIn">
+            <telerikAnimation:SlideAnimation
+                Direction="In"
+                Orientation="Vertical"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideInAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="TopOut">
+            <telerikAnimation:SlideAnimation
+                Direction="Out"
+                Orientation="Vertical"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideOutAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="RightIn">
+            <telerikAnimation:SlideAnimation
+                Direction="In"
+                Orientation="Horizontal"
+                SlideMode="Bottom"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideInAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="RightOut">
+            <telerikAnimation:SlideAnimation
+                Direction="Out"
+                Orientation="Horizontal"
+                SlideMode="Bottom"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideOutAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="BottomIn">
+            <telerikAnimation:SlideAnimation
+                Direction="In"
+                Orientation="Vertical"
+                SlideMode="Bottom"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideInAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+        <telerikAnimation:AnimationGroup AnimationName="BottomOut">
+            <telerikAnimation:SlideAnimation
+                Direction="Out"
+                Orientation="Vertical"
+                SlideMode="Bottom"
+                TargetElementName="PopupChild"
+                Duration="{StaticResource AutoHideOutAnimationDuration}" />
+        </telerikAnimation:AnimationGroup>
+    </telerikAnimation:AnimationSelector>
+    <Style x:Key="RadDockingStyle" TargetType="local:RadDocking">
+        <Setter Property="Foreground" Value="{telerik:FluentResource ResourceKey=MarkerBrush}" />
+        <Setter Property="Background" Value="{telerik:FluentResource ResourceKey=AlternativeBrush}" />
+        <Setter Property="BorderBrush" Value="{telerik:FluentResource ResourceKey=BasicBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="VisualCueStyle" Value="{StaticResource VisualCueStyle}" />
+        <Setter Property="Template" Value="{StaticResource RadDockingControlTemplate}" />
+        <Setter Property="CompassStyle" Value="{StaticResource CompassStyle}" />
+        <Setter Property="RootCompassStyle" Value="{StaticResource RootCompassStyle}" />
+        <Setter Property="telerikAnimation:AnimationManager.AnimationSelector" Value="{StaticResource RadDockingAnimationSelector}" />
+    </Style>
+    <Style BasedOn="{StaticResource AutoHideAreaStyle}" TargetType="dock:AutoHideArea" />
+    <Style BasedOn="{StaticResource RadPaneStyle}" TargetType="local:RadPane" />
+    <Style BasedOn="{StaticResource RadPaneStyle}" TargetType="local:RadDocumentPane" />
+    <Style BasedOn="{StaticResource RadGridResizerStyle}" TargetType="dock:RadGridResizer" />
+    <Style BasedOn="{StaticResource RadSplitContainerStyle}" TargetType="local:RadSplitContainer" />
+    <Style BasedOn="{StaticResource PaneHeaderStyle}" TargetType="dock:PaneHeader" />
+    <Style BasedOn="{StaticResource RadPaneGroupStyle}" TargetType="local:RadPaneGroup" />
+    <Style BasedOn="{StaticResource ToolWindowStyle}" TargetType="dock:ToolWindow" />
+    <Style BasedOn="{StaticResource CompassStyle}" TargetType="dock:Compass" />
+    <Style BasedOn="{StaticResource RootCompassStyle}" TargetType="dock:RootCompass" />
+    <Style BasedOn="{StaticResource VisualCueStyle}" TargetType="dock:VisualCue" />
+    <Style BasedOn="{StaticResource DocumentHostStyle}" TargetType="dock:DocumentHost" />
+    <Style BasedOn="{StaticResource RadDockingStyle}" TargetType="local:RadDocking" />
+</ResourceDictionary>

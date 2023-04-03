@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicData" Version="7.12.1" />
+    <PackageReference Include="ReactiveProperty" Version="8.2.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="Telerik.UI.for.Wpf.60" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.ConversationalUI.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.Data.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.DataVisualization.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.Docking.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf" Version="2023.1.117" />
+    <PackageReference Include="Telerik.Windows.PersistenceFramework.for.Wpf" Version="2023.1.117" />
+  </ItemGroup>
+
+</Project>
